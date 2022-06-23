@@ -107,7 +107,7 @@ export default function Header(props) {
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
-      <Toolbar className={classes.toolbar}>
+      <Toolbar className={classes.toolbar} style={{justifyContent:"space-between"}}>
         <IconButton
           color="inherit"
           onClick={() => toggleSidebar(layoutDispatch)}
@@ -136,8 +136,8 @@ export default function Header(props) {
             />
           )}
         </IconButton>
-        <Typography variant="h6" weight="medium" className={classes.logotype}>
-          Smart Contracs
+        <Typography variant="h4" weight="medium" className={classes.logotype}>
+          Smart Contracts
         </Typography>
         <IconButton
           aria-haspopup="true"
@@ -157,11 +157,11 @@ export default function Header(props) {
           classes={{ paper: classes.profileMenu }}
           disableAutoFocusItem
         >
-          <div className={classes.profileMenuUser}>
+          {/* <div className={classes.profileMenuUser}>
             <Typography variant="h4" weight="medium">
               John Smith
             </Typography>
-          </div>
+          </div> */}
           <MenuItem
             className={classNames(
               classes.profileMenuItem,

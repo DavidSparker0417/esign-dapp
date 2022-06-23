@@ -4,8 +4,8 @@ export default makeStyles(theme => ({
   pageTitleContainer: {
     display: "flex",
     justifyContent: "center",
-    marginBottom: theme.spacing(4),
-    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1),
   },
   typo: {
     color: theme.palette.text.hint,
