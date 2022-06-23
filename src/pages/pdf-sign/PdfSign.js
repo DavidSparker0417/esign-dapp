@@ -43,11 +43,12 @@ export default function PdfSign(props) {
           togglePad ?
             <div style={{
               width: "100%",
-              height: "40%",
+              height: "100%",
               position: "fixed",
               bottom: "0px",
               left: "0px",
               right: "0px",
+              top:"0px",
               backgroundColor:"gray"
             }}>
               <SignPad/>
