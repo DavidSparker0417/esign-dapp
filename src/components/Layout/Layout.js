@@ -25,6 +25,7 @@ import Sidebar from "../Sidebar";
 
 // pages
 import Dashboard from "../../pages/dashboard";
+import PdfSign from "../../pages/pdf-sign";
 import Typography from "../../pages/typography";
 import Notifications from "../../pages/notifications";
 import Maps from "../../pages/maps";
@@ -53,6 +54,7 @@ function Layout(props) {
           >
             <div className={classes.fakeToolbar} />
             <Switch>
+              <Route path="/app/pdf-sign" component={PdfSign} />
               <Route path="/app/dashboard" component={Dashboard} />
               <Route path="/app/typography" component={Typography} />
               <Route path="/app/tables" component={Tables} />
@@ -69,7 +71,8 @@ function Layout(props) {
             <Box
               mt={5}
               width={"100%"}
-              display={"flex"}
+              // display={"flex"}
+              display={"none"}
               alignItems={"center"}
               justifyContent="space-between"
             >
