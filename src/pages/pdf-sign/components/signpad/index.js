@@ -121,6 +121,19 @@ class SignPad extends Component {
                         DO SIGN
                     </Button>
                 </div>
+                <div style={{display:"flex", height: "50px"}}>
+                    <Button 
+                        variant="contained" color="primary" 
+                        style={{flex: 1, borderRadius:"0px"}}>
+                        ADOPT and SIGN
+                    </Button>
+                    <Button 
+                        variant="outlined" color="primary" 
+                        style={{flex: 1, borderRadius:"0px"}} 
+                        onClick={this.closeBtn}>
+                        Cancel
+                    </Button>
+                </div>
             </div>
         );
     }
