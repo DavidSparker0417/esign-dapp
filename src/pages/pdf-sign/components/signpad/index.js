@@ -13,7 +13,7 @@ class SignPad extends Component {
     constructor(props) {
         super(props);
         this.clearSign = this.clearSign.bind(this);
-        this.uploadSign = this.uploadSign.bind(this);
+        this.onSign = this.onSign.bind(this);
         this.closeBtn = this.closeBtn.bind(this);
     }
 
@@ -32,7 +32,7 @@ class SignPad extends Component {
         this.signaturePad.clear();
     }
 
-    async uploadSign() {
+    async onSign() {
 
         const pngDataUrl = await this.signaturePad.toDataURL(); 
         const pngImageBytes = await fetch(pngDataUrl).then((res) => res.arrayBuffer())
@@ -100,31 +100,26 @@ class SignPad extends Component {
                 <div style={{flex: 1}}>
 
                 </div>
-                <div style={{ height:"300px",  backgroundColor: "pink" }}>
-                    <canvas id="canvas" style={{ width: "100%", height: "100%" }} />
-                </div>
-                <div style={{ display: "flex", height: "60px", margin: "20px 10px", justifyContent: "space-around" }}>
-                    <Button
-                        variant='contained'
-                        size='small'
-                        color='primary'
-                        onClick={this.clearSign}
-                    >
-                        DRAW SIGNATURE
-                    </Button>
-                    <Button
-                        variant='contained'
-                        size='small'
-                        color='primary'
-                        onClick={this.uploadSign}
-                    >
-                        DO SIGN
-                    </Button>
+                <div style={{paddingLeft:"20px" , paddingRight:"20px"}}>
+                    <div style={{display:"flex", justifyContent:"flex-end"}}>
+                        <Button variant="text" color="primary" onClick={this.clearSign}>
+                            Clear
+                        </Button>
+                    </div>
+                    <div style={{ height:"300px",  backgroundColor: "pink", borderRadius:"10px"}}>
+                        <canvas id="canvas" style={{ width: "100%", height: "100%" }} />
+                    </div>
+                    <div>
+                        <p>
+                            By selecting Adopt and Sign, I agree that the signature and initals will be my electronic representation of my Signature and Initials for all purposes within these documents. When I, my agent, or my representative use them on all documents both on binding and non binting contacts, such signatures and initals will act just the same as a Pen to Paper signature and initial.
+                        </p>
+                    </div>
                 </div>
                 <div style={{display:"flex", height: "50px"}}>
                     <Button 
                         variant="contained" color="primary" 
-                        style={{flex: 1, borderRadius:"0px"}}>
+                        style={{flex: 1, borderRadius:"0px"}}
+                        onClick={this.onSign}>
                         ADOPT and SIGN
                     </Button>
                     <Button 
