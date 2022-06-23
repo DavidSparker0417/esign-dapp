@@ -18,6 +18,17 @@ export default function b64toBlob(b64Data, contentType = '', sliceSize = 512) {
   return blob;
 } 
 
+export function b64toBytes(b64Data) {
+  const byteCharacters = atob(b64Data);
+  let uint8Array = new Uint8Array(byteCharacters.length);
+
+  for (let i = 0; i < byteCharacters.length; i++) {
+    uint8Array[i] = byteCharacters.charCodeAt(i);
+  }
+  console.log("[DAVID] b64toBytes :: RESULT = ", uint8Array);
+  return uint8Array;
+} 
+
 export function trimFileName(filename) {
   const dotPos = filename.lastIndexOf(".");
   let name = filename.slice(0, dotPos);

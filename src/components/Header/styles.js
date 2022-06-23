@@ -9,9 +9,9 @@ export default makeStyles(theme => ({
     fontWeight: 500,
     fontSize: 18,
     whiteSpace: "nowrap",
-    [theme.breakpoints.down("xs")]: {
-      display: "none",
-    },
+    // [theme.breakpoints.down("xs")]: {
+    //   display: "none",
+    // },
   },
   appBar: {
     width: "100vw",

@@ -22,5 +22,11 @@ export default makeStyles(theme => ({
   pagenum: {
     paddingRight: "16px",
     justifyContent: "end"
-  }
+  },
+  text: {
+    fontSize: "14px",
+    [theme.breakpoints.down('xs')]: {
+      fontSize: "10px"
+    }
+  },
 }));

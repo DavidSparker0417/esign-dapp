@@ -2,7 +2,7 @@ import defaultTheme from "./default";
 
 import { createMuiTheme } from "@material-ui/core";
 
-const overrides = {
+const overrides = () => ({
   typography: {
     h1: {
       fontSize: "3rem",
@@ -22,11 +22,12 @@ const overrides = {
     h6: {
       fontSize: "1.142rem",
     },
+    fontSize: 14,
   },
-};
+});
 
 const themes = {
-  default: createMuiTheme({ ...defaultTheme, ...overrides }),
+  default: createMuiTheme({ ...defaultTheme, ...overrides() }),
 };
 
 export default themes;
