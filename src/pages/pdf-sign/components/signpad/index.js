@@ -97,8 +97,9 @@ class SignPad extends Component {
                     +
                     </span>
                 </div>
-                <div style={{flex: 1}}>
-
+                <div style={{height:"50px", marginTop:"100px"}}>
+                    <Button color="primary">DRAW SIGNATURE</Button>
+                    <Button color="primary">UPLOAD SIGNATURE</Button>
                 </div>
                 <div style={{paddingLeft:"20px" , paddingRight:"20px"}}>
                     <div style={{display:"flex", justifyContent:"flex-end"}}>
@@ -115,6 +116,7 @@ class SignPad extends Component {
                         </p>
                     </div>
                 </div>
+                <div style={{flex: 1}}></div>
                 <div style={{display:"flex", height: "50px"}}>
                     <Button 
                         variant="contained" color="primary" 
