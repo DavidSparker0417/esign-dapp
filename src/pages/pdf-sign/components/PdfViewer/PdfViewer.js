@@ -6,19 +6,6 @@ import { pdfjs } from "react-pdf";
 import useStyles from "./styles";
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.js`;
 
-const DocWrapper = styled(Box)(() => {
-  return {
-    canvas: {
-      width: "100%!important",
-      height: "auto!important"
-    },
-    ".react-pdf__Page__textContent" : {
-      width: "100%!important",
-      overflow: "hidden!important"
-    }
-  };
-});
-
 export default function PdfViewer({ pdf }) {
   const theme = useTheme();
   const classes = useStyles(theme);
@@ -37,7 +24,7 @@ export default function PdfViewer({ pdf }) {
     const resizeObserver = new ResizeObserver((event) => {
       if (pageWidth)
       {
-        console.log("[DAVID] resizeObervation :: pageWidth = ", event[0].contentBoxSize[0].inlineSize, pageWidth);
+        // console.log("[DAVID] resizeObervation :: pageWidth = ", event[0].contentBoxSize[0].inlineSize, pageWidth);
         handlePageScale(event[0].contentBoxSize[0].inlineSize);
       }
     });
@@ -75,9 +62,9 @@ export default function PdfViewer({ pdf }) {
     >
       {pdf && (
         <Document 
-          file={pdf.url} 
+          // file={{data: pdf.buffer}} 
+          file={pdf.url}
           onLoadSuccess={onDocumentLoadSuccess}
-          style={{width:"100%"}}
         >
           <Page 
             pageNumber={currentPage} 

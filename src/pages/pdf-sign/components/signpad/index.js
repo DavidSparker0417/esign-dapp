@@ -35,7 +35,8 @@ class SignPad extends Component {
 
         const pngDataUrl = await this.signaturePad.toDataURL(); 
         const pngImageBytes = await fetch(pngDataUrl).then((res) => res.arrayBuffer())
-        const pdfDoc = await PDFDocument.load(testJson.documents[0].documentBase64);
+        // const pdfDoc = await PDFDocument.load(testJson.documents[0].documentBase64);
+        const pdfDoc = await PDFDocument.load(this.props?.pdfBuffer);
         const pngImage = await pdfDoc.embedPng(pngImageBytes)
         const pngDims = pngImage.scale(1.0);
         const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
@@ -56,6 +57,9 @@ class SignPad extends Component {
         var bytes = new Uint8Array(pdfBytes); // pass your byte response to this constructor
         var blob = new Blob([bytes], { type: "application/pdf" });// change resultByte to bytes
         
+        if (this.props.update) {
+            this.props.update(bytes);
+        }
         var link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
         link.download = "signed.pdf";
