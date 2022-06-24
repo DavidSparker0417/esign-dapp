@@ -44,39 +44,41 @@ class SignPad extends Component {
     }
 
     async onSign() {
-
-        const pngDataUrl = await this.signaturePad.toDataURL(); 
-        const pngImageBytes = await fetch(pngDataUrl).then((res) => res.arrayBuffer())
-        // const pdfDoc = await PDFDocument.load(testJson.documents[0].documentBase64);
-        const pdfDoc = await PDFDocument.load(this.props?.pdfBuffer);
-        const pngImage = await pdfDoc.embedPng(pngImageBytes)
-        const pngDims = pngImage.scale(1.0);
-        const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
-        const pages = pdfDoc.getPages();
-        const firstPage = pages[0];
-        const { width, height } = firstPage.getSize();
-
-        firstPage.drawImage(pngImage, {
-            x: firstPage.getWidth() / 2 - pngDims.width / 2 + 75,
-            y: firstPage.getHeight() / 2 - pngDims.height + 250,
-            width: pngDims.width,
-            height: pngDims.height,
-        })
-
-        const pdfBytes = await pdfDoc.save();
-        console.log("pdfBytes", pdfBytes);
-
-        var bytes = new Uint8Array(pdfBytes); // pass your byte response to this constructor
-        var blob = new Blob([bytes], { type: "application/pdf" });// change resultByte to bytes
-        
-        if (this.props.update) {
-            this.props.update(bytes);
+        if (this.state.type === 1) {
+            return;
+        } else {
+            const pngDataUrl = await this.signaturePad.toDataURL(); 
+            const pngImageBytes = await fetch(pngDataUrl).then((res) => res.arrayBuffer())
+            // const pdfDoc = await PDFDocument.load(testJson.documents[0].documentBase64);
+            const pdfDoc = await PDFDocument.load(this.props?.pdfBuffer);
+            const pngImage = await pdfDoc.embedPng(pngImageBytes)
+            const pngDims = pngImage.scale(1.0);
+            const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
+            const pages = pdfDoc.getPages();
+            const firstPage = pages[0];
+            const { width, height } = firstPage.getSize();
+    
+            firstPage.drawImage(pngImage, {
+                x: firstPage.getWidth() / 2 - pngDims.width / 2 + 75,
+                y: firstPage.getHeight() / 2 - pngDims.height + 250,
+                width: pngDims.width,
+                height: pngDims.height,
+            })
+    
+            const pdfBytes = await pdfDoc.save();
+            console.log("pdfBytes", pdfBytes);
+    
+            var bytes = new Uint8Array(pdfBytes); // pass your byte response to this constructor
+            var blob = new Blob([bytes], { type: "application/pdf" });// change resultByte to bytes
+            
+            if (this.props.update) {
+                this.props.update(bytes);
+            }
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = "signed.pdf";
+            link.click();
         }
-        var link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = "signed.pdf";
-        link.click();
-
     }
 
     closeBtn() {
@@ -115,7 +117,7 @@ class SignPad extends Component {
                     </span>
                 </div>
                 <div style={{height:"50px", display:"flex",  marginTop:"100px"}}>
-                    <FormControl style={{flex: 1}}>
+                    <FormControl style={{flex: 1, height: "40px"}}>
                         <InputLabel id="demo-simple-select-label">CHOOSE STYLE</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
@@ -131,14 +133,20 @@ class SignPad extends Component {
                     <Button color="primary" variant="contained" style={{flex: 1}}>DRAW SIGNATURE</Button>
                     <Button color="primary" variant="outlined" style={{flex: 1}}>UPLOAD SIGNATURE</Button>
                 </div>
-                <div style={{paddingLeft:"20px" , paddingRight:"20px"}}>
+                <div style={{paddingLeft:"20px" , paddingRight:"20px", marginTop:"30px"}}>
                     <div style={{display:"flex", justifyContent:"flex-end"}}>
                         <Button variant="text" color="primary" onClick={this.clearSign}>
                             Clear
                         </Button>
                     </div>
                     <div style={{ height:"300px",  backgroundColor: "pink", borderRadius:"10px"}}>
-                        <canvas id="canvas" style={{ width: "100%", height: "100%" }} />
+                        {
+                            this.state.type === 0? 
+                            <canvas id="canvas" style={{ width: "100%", height: "100%" }} /> :
+                            <textarea style={{width:"100%", height:"100%", resize:"none", padding:"10px 20px", borderRadius:"10px"}} 
+                                placeholder="Please input your signature">    
+                            </textarea>
+                        }
                     </div>
                     <div>
                         <p>
