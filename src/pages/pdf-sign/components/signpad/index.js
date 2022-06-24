@@ -5,6 +5,12 @@ import Button from '@material-ui/core/Button';
 import { degrees, PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 
 import testJson from "../../payload.json";
+import Select from '@mui/material/Select';
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+
+
 
 
 
@@ -15,9 +21,14 @@ class SignPad extends Component {
         this.clearSign = this.clearSign.bind(this);
         this.onSign = this.onSign.bind(this);
         this.closeBtn = this.closeBtn.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.state = {
+            type: 0
+        }
     }
 
     signaturePad = null;
+
 
     componentDidMount() {
         const canvas = document.querySelector("#canvas");
@@ -84,6 +95,12 @@ class SignPad extends Component {
             this.signaturePad.clear(); // otherwise isEmpty() might return incorrect value
     }
     
+    handleChange(event) {
+        console.log("select: ", event.target.value);
+        this.setState({
+            type: event.target.value
+        });
+    }
 
     render() {
         return (
@@ -97,9 +114,22 @@ class SignPad extends Component {
                     +
                     </span>
                 </div>
-                <div style={{height:"50px", marginTop:"100px"}}>
-                    <Button color="primary">DRAW SIGNATURE</Button>
-                    <Button color="primary">UPLOAD SIGNATURE</Button>
+                <div style={{height:"50px", display:"flex",  marginTop:"100px"}}>
+                    <FormControl style={{flex: 1}}>
+                        <InputLabel id="demo-simple-select-label">CHOOSE STYLE</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={this.state.type}
+                            label="CHOOSE STYLE"
+                            onChange={this.handleChange}
+                            >
+                            <MenuItem value={0}>PEN</MenuItem>
+                            <MenuItem value={1}>TEXT</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <Button color="primary" variant="contained" style={{flex: 1}}>DRAW SIGNATURE</Button>
+                    <Button color="primary" variant="outlined" style={{flex: 1}}>UPLOAD SIGNATURE</Button>
                 </div>
                 <div style={{paddingLeft:"20px" , paddingRight:"20px"}}>
                     <div style={{display:"flex", justifyContent:"flex-end"}}>
