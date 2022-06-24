@@ -15,6 +15,7 @@ export default function PdfSign(props) {
   const [pdf, setPdf] = useState();
   const [pdfBuffer, setPdfBuffer] = useState();
   const [togglePad, setTogglePad] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
   useEffect(() => {
     console.log("[DAVID] testPayload :: ", testPayload);
     const doc = testPayload.documents[0];
@@ -42,6 +43,10 @@ export default function PdfSign(props) {
     console.log("[DAVID] base64Response :: ", blob, url);
   }, [pdfBuffer])
 
+  useEffect(()=>{
+    console.log("current page chaged: ", currentPage);
+  }, [currentPage])
+
   return (
     <div>
       <PageTitle
@@ -53,7 +58,7 @@ export default function PdfSign(props) {
         }
       />
       <Grid container>
-        <PdfViewer pdf = {pdf}/>
+        <PdfViewer pdf = {pdf} curPage={(page)=>setCurrentPage(page)}/>
       </Grid>
       {
           togglePad ?
@@ -71,6 +76,7 @@ export default function PdfSign(props) {
                 pdfBuffer = {pdfBuffer}
                 update = {(buffer)=> setPdfBuffer(buffer)}
                 close={()=>setTogglePad(false)}
+                page={currentPage}
               />
             </div> : <></>
         }

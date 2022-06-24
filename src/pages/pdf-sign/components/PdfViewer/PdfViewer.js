@@ -6,7 +6,7 @@ import { pdfjs } from "react-pdf";
 import useStyles from "./styles";
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.js`;
 
-export default function PdfViewer({ pdf }) {
+export default function PdfViewer({ pdf , curPage}) {
   const theme = useTheme();
   const classes = useStyles(theme);
   const pageContainerRef = useRef(null);
@@ -40,6 +40,7 @@ export default function PdfViewer({ pdf }) {
   function onHandlePageNumber(num) {
     if (num === 0 || num > totalPages) return;
     setCurrentPage(num);
+    curPage(num);    
   }
 
   useEffect(() => {
